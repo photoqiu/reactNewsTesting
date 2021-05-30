@@ -6,7 +6,7 @@
  * @LastEditTime: 2021-05-28 13:49:13
  */
 import React from 'react';
-import { useImmer } from '../components/hooks_widgets/UseImmer';
+import { useImmer } from '@/components/hooks_widgets/UseImmer';
 
 interface personal {
     name: string;

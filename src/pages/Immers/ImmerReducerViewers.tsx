@@ -6,7 +6,7 @@
  * @LastEditTime: 2021-05-28 15:48:27
  */
 import React from 'react';
-import { useImmerReducer } from '../components/hooks_widgets/UseImmer';
+import { useImmerReducer } from '@/components/hooks_widgets/UseImmer';
 
 interface CounterProps {
     count: number;
@@ -18,22 +18,24 @@ type Action = {
 
 const initialState: CounterProps = { count: 0 };
 
-function reducer(draft: CounterProps, action: Action) {
+function reducer(draft: CounterProps, action: Action):any {
     switch (action.type) {
         case 'reset':
             return initialState;
         case 'increment':
-            return void draft.count++;
+            draft.count++;
+            return draft;
         case 'decrement':
-            return void draft.count--;
+            draft.count--;
+            return draft;
     }
 }
 
 const Counter: React.FC<CounterProps> = () => {
-    const [counter, dispatch] = useImmerReducer(reducer, initialState);
+    const [state, dispatch] = useImmerReducer(reducer, initialState);
     return (
         <>
-            Count: {counter.count}
+            Count: {state.count}
             <button onClick={() => dispatch({ type: 'reset' })}>Reset</button>
             <button onClick={() => dispatch({ type: 'increment' })}>+</button>
             <button onClick={() => dispatch({ type: 'decrement' })}>-</button>

@@ -33,6 +33,7 @@ const webpackConfigBase = {
         extensions: ['*', '.less', '.css', '.js', '.tsx', '.ts', '.json'],
         alias: { // 减少使用别名提高编译速速
             '@app': path.join(__dirname, './src'),
+            '@': path.join(__dirname, './src'),
             '@datas': path.join(__dirname, './mockdatas'),
             fetch: fetchPath,
             fetchJsonp: fetchJsonpPath,
