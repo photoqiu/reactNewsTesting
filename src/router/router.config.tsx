@@ -1,5 +1,11 @@
-import { lazy } from 'react'
-
+/*
+ * @Description:
+ * @Author: zhj
+ * @Date: 2021-05-31 09:30:56
+ * @LastEditors: zhj
+ * @LastEditTime: 2021-05-31 15:03:19
+ */
+import { lazy } from 'react';
 
 const Login = lazy(() => import('@/pages/Users/Login'));
 const Register = lazy(() => import('@/pages/Users/Register'));
@@ -8,72 +14,77 @@ const Category = lazy(() => import('@/pages/Category/Category'));
 const TagList = lazy(() => import('@/pages/Tags/TagList'));
 const Home = lazy(() => import('@/pages/Index/Home'));
 const Details = lazy(() => import('@/pages/Posts/Details'));
+const IndexDetails = lazy(() => import('@/pages/Posts/IndexDetails'));
 const Counter = lazy(() => import('@/pages/Immers/ImmerReducerViewers'));
 const ImmerViewers = lazy(() => import('@/pages/Immers/ImmerViewers'));
 
-
 const datas = [
     {
-        path: "/immerdux",
-        title: "测试ImmerRedux",
+        path: '/immerdux',
+        title: '测试ImmerRedux',
         exacts: false,
-        component: Counter
+        component: Counter,
     },
     {
-        path: "/immviewer",
-        title: "测试Immer",
+        path: '/indexdetails',
+        title: '测试useThrottle',
         exacts: false,
-        component: ImmerViewers
+        component: IndexDetails,
     },
     {
-        path: "/login",
-        title: "用户登录",
+        path: '/immviewer',
+        title: '测试Immer',
         exacts: false,
-        component: Login
+        component: ImmerViewers,
     },
     {
-        path: "/register",
-        title: "注册",
+        path: '/login',
+        title: '用户登录',
         exacts: false,
-        component: Register
+        component: Login,
     },
     {
-        path: "/logout",
-        title: "登出",
+        path: '/register',
+        title: '注册',
         exacts: false,
-        component: Logout
+        component: Register,
     },
     {
-        path: "/categroy",
-        title: "分类",
+        path: '/logout',
+        title: '登出',
         exacts: false,
-        component: Category
+        component: Logout,
     },
     {
-        path: "/tag",
-        title: "标签",
+        path: '/categroy',
+        title: '分类',
         exacts: false,
-        component: TagList
+        component: Category,
     },
     {
-        path: "/index",
-        title: "首页",
+        path: '/tag',
+        title: '标签',
+        exacts: false,
+        component: TagList,
+    },
+    {
+        path: '/index',
+        title: '首页',
         exacts: true,
-        component: Home
+        component: Home,
     },
     {
-		path: '/',
-		component: Home,
-		title: '首页',
+        path: '/',
+        component: Home,
+        title: '首页',
         exacts: true,
-	},
+    },
     {
-        path: "/detail",
-        title: "详情",
+        path: '/detail',
+        title: '详情',
         exacts: false,
-        component: Details
-    }
-]
+        component: Details,
+    },
+];
 
-
-export default datas
+export default datas;

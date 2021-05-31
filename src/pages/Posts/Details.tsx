@@ -1,18 +1,33 @@
-import React from "react" 
+/*
+ * @Description:
+ * @Author: zhj
+ * @Date: 2021-05-31 09:30:56
+ * @LastEditors: zhj
+ * @LastEditTime: 2021-05-31 14:59:08
+ */
+import React, { useState } from 'react';
+import useDebounce from '@/components/hooks_widgets/UseDebounce';
 
-interface infoDatas {
-    nickname: string
-    email: string
-    passwd: string
-    isRemember: boolean
-}
+const Details: React.FC = () => {
+    const [a, setA] = useState<string>('');
+    const [b, setB] = useState<string>('');
+    useDebounce(
+        () => {
+            setB(a);
+        },
+        2000,
+        [a],
+    );
 
-const Details: React.FC<infoDatas> = () => {
-
+    const changeInputs = (e: React.FormEvent<HTMLInputElement>) => {
+        setA(e.currentTarget.value);
+    };
     return (
-        <div>详情</div>
-    )
-}
-
-
-export default React.memo(Details)
+        <div>
+            <input type="text" onChange={changeInputs} />
+            <div>delay的变量：{b}</div>
+            <div>realtime的变量：{a}</div>
+        </div>
+    );
+};
+export default React.memo(Details);

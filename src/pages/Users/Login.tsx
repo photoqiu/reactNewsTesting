@@ -1,18 +1,27 @@
-import React from "react" 
+/*
+ * @Description:
+ * @Author: zhj
+ * @Date: 2021-05-31 09:30:56
+ * @LastEditors: zhj
+ * @LastEditTime: 2021-05-31 15:50:13
+ */
+import React from 'react';
+import useMediaQuery from '@/components/hooks_widgets/UseMediaQuery';
 
-interface infoDatas {
-    nickname: string
-    email: string
-    passwd: string
-    isRemember: boolean
-}
+const Login: React.FC = () => {
+    const canHover = useMediaQuery(
+        // Media queries
+        ['(hover: hover)'],
+        // Values corresponding to the above media queries by array index
+        [true],
+        // Default value
+        false,
+    );
 
-const Login: React.FC<infoDatas> = () => {
+    const canHoverClass = 'opacity-0 hover:opacity-100 transition-opacity';
+    const defaultClass = 'opacity-100';
 
-    return (
-        <div>用户登录</div>
-    )
-}
+    return <div className={canHover ? canHoverClass : defaultClass}>Hover me!</div>;
+};
 
-
-export default React.memo(Login)
+export default React.memo(Login);
