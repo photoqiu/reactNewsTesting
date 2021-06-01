@@ -87,6 +87,7 @@ const webpackConfigBase = {
             },
             {
                 test: /\.css$/,
+                include: /node_modules/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -113,6 +114,7 @@ const webpackConfigBase = {
             },
             {
                 test: /\.less$/,
+                include: /node_modules/,
                 use: [
                     {
                         loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -141,12 +143,14 @@ const webpackConfigBase = {
                         loader: 'less-loader',
                         options: {
                             sourceMap: true,
+                            javascriptEnabled: true,
                         },
                     },
                 ],
             },
             {
                 test: /\.s[ac]ss$/i,
+                include: /node_modules/,
                 use: [
                     {
                         loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,

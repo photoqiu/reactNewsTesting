@@ -34,5 +34,11 @@
         // 下面这些选项对 babel 编译 TypeScript 没有作用但是可以让 VSCode 等编辑器正确提示错误
         "target": "ES2019",
         "module": "ESNext"
-    }
+    },
+    "include": [
+        "./pages/**/*",
+        "./components/**/*",
+        "./typings/**/*",
+        "./assets/**/*"
+    ]
 }

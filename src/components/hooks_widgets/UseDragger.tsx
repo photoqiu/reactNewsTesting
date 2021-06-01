@@ -2,46 +2,28 @@
  * useDragger hooks
  */
 import { useEffect, useRef } from 'react';
-
-const throttle = (func: any, delay: number) => {
-    var prev = Date.now();
-    return () => {
-        let context: any = this;
-        let args: any = arguments;
-        let now: number = Date.now();
-        if (now - prev >= delay) {
-            func.apply(context, args);
-            prev = Date.now();
-        }
-    };
-};
+import useThrottle from './UseThrottle';
 
 const useDragger = (
     target: {
         current: {
             style: {
-                getPropertyValue: (arg0: string) => string | number;
+                getPropertyValue: (arg0: string) => string | number | any;
                 setProperty: (arg0: string, arg1: string) => void;
             };
-            addEventListener: (
-                arg0: string,
-                arg1: { (): void; (): void; (): void },
-                arg2: { passive: boolean },
-            ) => undefined;
-            removeEventListener: (arg0: undefined) => void;
+            addEventListener: (arg0: string, arg1: any, arg2: { passive: boolean }) => any;
+            removeEventListener: (arg0: any) => void;
         };
     },
     limit: () => any,
     deps = [1, 0, 0], // zoom  moveLimit
     op = {},
-    startEvent = () => {},
-    moveEvent = () => {},
-    endEvent = () => {},
+    startEvent = (_e: any = {}, _obj: any = {}) => {},
+    moveEvent = (_e: any, _obj: any = {}) => {},
+    endEvent = (_e: any, _obj: any = {}) => {},
 ) => {
     let options = { zoom: false, move: true, moveLimit: false, ...op };
-    let start = useRef(),
-        move = useRef(),
-        end = useRef();
+    let [start, move, end] = [useRef(), useRef(), useRef()];
     let pageX: number = 0,
         pageY: number = 0,
         currX: number = 0,
@@ -49,10 +31,7 @@ const useDragger = (
         moveX: number = 0,
         moveY: number = 0;
 
-    let re_pageX: number = 0,
-        re_pageY: number = 0,
-        re_size: number = 1,
-        distance: number = 0;
+    let re_size: number = 1;
 
     let touchStartHandler = function (e: any) {
         if (!e.touches[1]) {
@@ -113,21 +92,25 @@ const useDragger = (
     useEffect(() => {
         start.current = target.current.addEventListener(
             'touchstart',
-            throttle(touchStartHandler, 30),
+            useThrottle(touchStartHandler, 30),
             {
                 passive: false,
             },
         );
         move.current = target.current.addEventListener(
             'touchmove',
-            throttle(touchMoveHandler, 30),
+            useThrottle(touchMoveHandler, 30),
             {
                 passive: false,
             },
         );
-        end.current = target.current.addEventListener('touchend', throttle(touchEndHandler, 30), {
-            passive: false,
-        });
+        end.current = target.current.addEventListener(
+            'touchend',
+            useThrottle(touchEndHandler, 30),
+            {
+                passive: false,
+            },
+        );
         // start.current = target.current.addEventListener('touchstart', touchStartHandler)
         // move.current = target.current.addEventListener('touchmove', touchMoveHandler)
         // end.current = target.current.addEventListener('touchend', touchEndHandler)
