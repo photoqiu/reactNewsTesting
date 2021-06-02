@@ -27,7 +27,7 @@ const datas = [
         component: Counter,
     },
     {
-        path: '/DrawLayerout',
+        path: '/draw',
         title: '测试webGL画布',
         exacts: false,
         component: DrawLayerout,

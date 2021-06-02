@@ -85,6 +85,9 @@ const Home: React.FC = () => {
             <NavLink className={HomeStyles.nav} to="/logout">
                 登录8
             </NavLink>
+            <NavLink className={HomeStyles.nav} to="/draw">
+                登录9
+            </NavLink>
             <div className={HomeStyles.appdatas}>
                 <h3>点击次数：{counter}</h3>
                 {netDatas &&
