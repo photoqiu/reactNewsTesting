@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const MediaQueryPlugin = require('media-query-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
 
 function getFilePath(relatedPath) {
@@ -87,7 +88,15 @@ const webpackConfigBase = {
             },
             {
                 test: /\.css$/,
-                include: /node_modules/,
+                exclude: [
+                    //排除这两个文件夹下面的css文件
+                    path.resolve(__dirname, 'src/assets'),
+                ],
+                include: [
+                    //样式只应用到这两个文件夹下面的css文件中
+                    path.resolve(__dirname, 'node_modules'),
+                    path.resolve(__dirname, 'src/pages'),
+                ],
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -107,20 +116,36 @@ const webpackConfigBase = {
                             importLoaders: 2,
                         },
                     },
+                    { loader: MediaQueryPlugin.loader },
                     {
                         loader: 'postcss-loader',
                     },
                 ],
             },
             {
-                test: /\.less$/,
-                include: /node_modules/,
+                test: /\.less$/i,
+                exclude: [
+                    //排除这两个文件夹下面的css文件
+                    path.resolve(__dirname, 'src/assets'),
+                ],
+                include: [
+                    //样式只应用到这两个文件夹下面的css文件中
+                    path.resolve(__dirname, 'node_modules'),
+                    path.resolve(__dirname, 'src/pages'),
+                ],
                 use: [
                     {
                         loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                         options: devMode
-                            ? {}
+                            ? {
+                                  modules: {
+                                      namedExport: true,
+                                  },
+                              }
                             : {
+                                  modules: {
+                                      namedExport: true,
+                                  },
                                   publicPath: './css',
                               },
                     },
@@ -133,24 +158,34 @@ const webpackConfigBase = {
                             modules: {
                                 namedExport: true,
                             },
-                            importLoaders: 2,
+                            importLoaders: 1,
                         },
                     },
+                    { loader: MediaQueryPlugin.loader },
                     {
                         loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                config: getFilePath('./postcss.config.js'),
+                            },
+                        },
                     },
                     {
                         loader: 'less-loader',
-                        options: {
-                            sourceMap: true,
-                            javascriptEnabled: true,
-                        },
                     },
                 ],
             },
             {
                 test: /\.s[ac]ss$/i,
-                include: /node_modules/,
+                exclude: [
+                    //排除这两个文件夹下面的css文件
+                    path.resolve(__dirname, 'src/assets'),
+                ],
+                include: [
+                    //样式只应用到这两个文件夹下面的css文件中
+                    path.resolve(__dirname, 'node_modules'),
+                    path.resolve(__dirname, 'src/pages'),
+                ],
                 use: [
                     {
                         loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -162,13 +197,10 @@ const webpackConfigBase = {
                         },
                     },
                     'css-loader',
+                    { loader: MediaQueryPlugin.loader },
                     'postcss-loader',
                     'sass-loader',
                 ],
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader',
             },
             {
                 test: /\.html$/,
@@ -218,8 +250,8 @@ const webpackConfigBase = {
     plugins: [
         new MiniCssExtractPlugin({
             linkType: 'text/css',
-            filename: devMode ? 'css/style.[contenthash].css' : 'css/[name].[contenthash].css',
-            chunkFilename: devMode ? 'css/style.[id].css' : 'css/style.[chunkhash].[id].css',
+            filename: devMode ? 'style.[name].css' : 'css/[name].[contenthash].css',
+            chunkFilename: devMode ? 'style.[id].css' : 'css/style.[chunkhash].[id].css',
         }),
         new FriendlyErrorsPlugin(),
         new webpack.ProvidePlugin({

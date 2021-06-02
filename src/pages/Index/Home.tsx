@@ -3,14 +3,12 @@
  * @Author: zhj
  * @Date: 2021-05-31 09:30:56
  * @LastEditors: ext.qiubo
- * @LastEditTime: 2021-06-01 17:08:32
+ * @LastEditTime: 2021-06-02 10:54:11
  */
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import useXState from '@/components/hooks_widgets/UseXState';
-import HomeStyles from './HomeStyles.less';
-
-console.log('Home Style:', JSON.stringify(HomeStyles));
+import * as HomeStyles from './HomeStyles.less';
 
 interface infoDatas {
     nickname: string;
@@ -58,41 +56,41 @@ const Home: React.FC = () => {
         ]);
     };
     return (
-        <div className="container">
-            <div className="title">首页</div>
-            <NavLink className="nav" to="/login">
+        <div className={HomeStyles.container}>
+            <div className={HomeStyles.title}>首页</div>
+            <NavLink className={HomeStyles.nav} to="/login">
                 登录
             </NavLink>
-            <NavLink className="nav" to="/immviewer">
+            <NavLink className={HomeStyles.nav} to="/immviewer">
                 登录1
             </NavLink>
-            <NavLink className="nav" to="/immerdux">
+            <NavLink className={HomeStyles.nav} to="/immerdux">
                 登录2
             </NavLink>
-            <NavLink className="nav" to="/detail">
+            <NavLink className={HomeStyles.nav} to="/detail">
                 登录3
             </NavLink>
-            <NavLink className="nav" to="/indexdetails">
+            <NavLink className={HomeStyles.nav} to="/indexdetails">
                 登录4
             </NavLink>
-            <NavLink className="nav" to="/categroy">
+            <NavLink className={HomeStyles.nav} to="/categroy">
                 登录5
             </NavLink>
-            <NavLink className="nav" to="/tag">
+            <NavLink className={HomeStyles.nav} to="/tag">
                 登录6
             </NavLink>
-            <NavLink className="nav" to="/login">
+            <NavLink className={HomeStyles.nav} to="/login">
                 登录7
             </NavLink>
-            <NavLink className="nav" to="/logout">
+            <NavLink className={HomeStyles.nav} to="/logout">
                 登录8
             </NavLink>
-            <div className="appdatas">
+            <div className={HomeStyles.appdatas}>
                 <h3>点击次数：{counter}</h3>
                 {netDatas &&
                     netDatas.map((value: infoDatas | any, index: number) => {
                         return (
-                            <div className="users" key={index}>
+                            <div className={HomeStyles.users} key={index}>
                                 <h3>nickname: {value.nickname}</h3>
                                 <h3>email: {value.email}</h3>
                                 <h3>password: {value.passwd}</h3>
