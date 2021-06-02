@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const MediaQueryPlugin = require('media-query-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const devMode = process.env.NODE_ENV !== 'production';
 
 function getFilePath(relatedPath) {
@@ -43,6 +45,18 @@ const webpackConfigBase = {
         runtimeChunk: {
             name: 'runtime',
         },
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                parallel: true,
+                terserOptions: {
+                    format: {
+                        comments: false,
+                    },
+                },
+                extractComments: false,
+            }),
+        ],
         splitChunks: {
             chunks: 'all', // 共有三个值可选：initial(初始模块)、async(按需加载模块)和all(全部模块)
             minSize: 30000, // 模块超过30k自动被抽离成公共模块
@@ -248,6 +262,11 @@ const webpackConfigBase = {
     },
     performance: false,
     plugins: [
+        new WebpackBar({
+            color: 'orange',
+            name: 'JD 3CS Front end mobile services',
+            reporters: ['fancy'],
+        }),
         new MiniCssExtractPlugin({
             linkType: 'text/css',
             filename: devMode ? 'style.[name].css' : 'css/[name].[contenthash].css',
