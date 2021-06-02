@@ -2,8 +2,8 @@
  * @Description:
  * @Author: zhj
  * @Date: 2021-05-31 09:30:56
- * @LastEditors: zhj
- * @LastEditTime: 2021-05-31 15:03:19
+ * @LastEditors: ext.qiubo
+ * @LastEditTime: 2021-06-02 17:06:46
  */
 import { lazy } from 'react';
 
@@ -17,6 +17,7 @@ const Details = lazy(() => import('@/pages/Posts/Details'));
 const IndexDetails = lazy(() => import('@/pages/Posts/IndexDetails'));
 const Counter = lazy(() => import('@/pages/Immers/ImmerReducerViewers'));
 const ImmerViewers = lazy(() => import('@/pages/Immers/ImmerViewers'));
+const DrawLayerout = lazy(() => import('@/pages/Draw/DrawLayerout'));
 
 const datas = [
     {
@@ -24,6 +25,12 @@ const datas = [
         title: '测试ImmerRedux',
         exacts: false,
         component: Counter,
+    },
+    {
+        path: '/DrawLayerout',
+        title: '测试webGL画布',
+        exacts: false,
+        component: DrawLayerout,
     },
     {
         path: '/indexdetails',
