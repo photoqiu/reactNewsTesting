@@ -264,7 +264,7 @@ const webpackConfigBase = {
     plugins: [
         new WebpackBar({
             color: 'orange',
-            name: 'JD 3CS Front end mobile services',
+            name: 'JD 3CS Front End Mobile Services',
             reporters: ['fancy'],
         }),
         new MiniCssExtractPlugin({
